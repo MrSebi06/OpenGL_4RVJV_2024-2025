@@ -19,8 +19,10 @@ target_link_libraries(${PROJECT_NAME} PRIVATE glfw)
 find_package(GLEW REQUIRED)
 target_link_libraries(${PROJECT_NAME} PRIVATE GLEW::GLEW)
 
-add_subdirectory(${USER_HOME_DIRECTORY}/Cours/4RVJV/OpenGL/common ${CMAKE_BINARY_DIR}/common_build)
-target_link_libraries(${PROJECT_NAME} PRIVATE common)
+if(EXISTS "${CMAKE_SOURCE_DIR}/LocalConfig.cmake")
+    message(STATUS "Including user-specific LocalConfig.cmake")
+    include("${CMAKE_SOURCE_DIR}/LocalConfig.cmake")
+endif()
 
 add_custom_target(copy_shader ALL
         COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/shader ${CMAKE_BINARY_DIR}/shader

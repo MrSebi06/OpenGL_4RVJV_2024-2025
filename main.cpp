@@ -3,9 +3,8 @@
 #define GLEW_STATIC
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
-#include <GL/wglew.h>
 
-#include "../common/GLShader.h"
+#include "../OpenGL/common/GLShader.h"
 
 struct Application {
     GLShader m_basicShader;
