@@ -1,4 +1,4 @@
-﻿#version 120
+#version 120
 
 attribute vec2 a_Position;
 attribute vec3 a_Color;
