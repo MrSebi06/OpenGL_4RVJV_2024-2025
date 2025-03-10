@@ -1,4 +1,6 @@
-# ! DO NOT COMMIT THIS FILE !
+# ! DO NOT COMMIT YOUR LocalConfig.cmake FILE !
+
+# Use this file as an example to link your OpenGL common libraries
 
 # Exemple common path, change it to your own path
 # If on windows, you can use ${USER_HOME_DIRECTORY} instead of $ENV{HOME}
