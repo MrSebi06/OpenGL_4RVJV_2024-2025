@@ -4,7 +4,12 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
-#include "../OpenGL/common/GLShader.h"
+#ifdef WIN32
+#include <GL/wglew.h>
+#endif
+
+#include "../common/GLShader.h"
+
 
 struct Application {
     GLShader m_basicShader;
