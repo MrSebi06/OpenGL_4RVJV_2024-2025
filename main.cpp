@@ -8,7 +8,7 @@
 #include <GL/wglew.h>
 #endif
 
-#include "../common/GLShader.h"
+#include "GLShader.h"
 
 
 struct Application {

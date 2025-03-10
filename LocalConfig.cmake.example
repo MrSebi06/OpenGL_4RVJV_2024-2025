@@ -4,5 +4,6 @@
 
 # Exemple common path, change it to your own path
 # If on windows, you can use ${USER_HOME_DIRECTORY} instead of $ENV{HOME}
-add_subdirectory(${USER_HOME_DIRECTORY}/Repositories/OpenGL/common ${CMAKE_BINARY_DIR}/common_build)
+add_subdirectory($ENV{HOME}/Repositories/OpenGL/common ${CMAKE_BINARY_DIR}/common_build)
 target_link_libraries(${PROJECT_NAME} PRIVATE common)
+target_include_directories(${PROJECT_NAME} PRIVATE $ENV{HOME}/Repositories/OpenGL/common)
