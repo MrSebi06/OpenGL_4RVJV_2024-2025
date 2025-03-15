@@ -23,18 +23,27 @@ struct Application {
     void Render();
 };
 
-struct Vertex {
-    float position[2]{};
-    float color[3]{};
 
-    Vertex(const float x, const float y, const float r, const float g, const float b) {
-        position[0] = x;
-        position[1] = y;
-        color[0] = r;
-        color[1] = g;
-        color[2] = b;
+struct Vec2 {
+    float x;
+    float y;
+};
+
+struct Vec3 {
+    float x;
+    float y;
+    float z;
+};
+
+
+struct Vertex {
+    Vec2 position;
+    Vec3 color;
+
+    Vertex(const Vec2 position, const Vec3 color): position(position), color(color) {
     }
 };
+
 
 bool Application::Initialize(const int width, const int height) {
     this->width = width;
@@ -68,9 +77,9 @@ void Application::Render() {
     glUseProgram(basicProgram);
 
     static const Vertex triangle[] = {
-        Vertex(-0.5f, -0.5f, 1.0f, 0.0f, 0.0f),
-        Vertex(0.5f, -0.5f, 0.0f, 1.0f, 0.0f),
-        Vertex(0.0f, 0.5f, 0.0f, 0.0f, 1.0f)
+        Vertex(Vec2(-0.5f, -0.5f), Vec3(1.0f, 0.0f, 0.0f)),
+        Vertex(Vec2(0.5f, -0.5f), Vec3(0.0f, 1.0f, 0.0f)),
+        Vertex(Vec2(0.0f, 0.5f), Vec3(0.0f, 0.0f, 1.0f))
     };
 
     const int loc_position = glGetAttribLocation(basicProgram, "a_Position");
