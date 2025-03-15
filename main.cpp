@@ -13,12 +13,14 @@
 
 struct Application {
     GLShader m_basicShader;
+    GLuint VBO;
+
     int width{};
     int height{};
 
     bool Initialize(int width, int height);
 
-    void Terminate();
+    void Terminate() const;
 
     void Render();
 };
@@ -61,10 +63,22 @@ bool Application::Initialize(const int width, const int height) {
     wglSwapIntervalEXT(1);
 #endif
 
+    static const Vertex triangle[] = {
+        Vertex(Vec2(-0.5f, -0.5f), Vec3(1.0f, 0.0f, 0.0f)),
+        Vertex(Vec2(0.5f, -0.5f), Vec3(0.0f, 1.0f, 0.0f)),
+        Vertex(Vec2(0.0f, 0.5f), Vec3(0.0f, 0.0f, 1.0f))
+    };
+
+    glGenBuffers(1, &VBO);
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex) * 3, triangle, GL_STATIC_DRAW);
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+
     return true;
 }
 
-void Application::Terminate() {
+void Application::Terminate() const {
+    glDeleteBuffers(1, &VBO);
 }
 
 void Application::Render() {
@@ -76,19 +90,16 @@ void Application::Render() {
     const auto basicProgram = m_basicShader.GetProgram();
     glUseProgram(basicProgram);
 
-    static const Vertex triangle[] = {
-        Vertex(Vec2(-0.5f, -0.5f), Vec3(1.0f, 0.0f, 0.0f)),
-        Vertex(Vec2(0.5f, -0.5f), Vec3(0.0f, 1.0f, 0.0f)),
-        Vertex(Vec2(0.0f, 0.5f), Vec3(0.0f, 0.0f, 1.0f))
-    };
 
     const int loc_position = glGetAttribLocation(basicProgram, "a_Position");
     const int loc_color = glGetAttribLocation(basicProgram, "a_Color");
     constexpr int stride = sizeof(Vertex);
     glEnableVertexAttribArray(loc_position);
     glEnableVertexAttribArray(loc_color);
-    glVertexAttribPointer(loc_position, 2, GL_FLOAT, GL_FALSE, stride, &triangle[0].position);
-    glVertexAttribPointer(loc_color, 3, GL_FLOAT, GL_FALSE, stride, &triangle[0].color);
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glVertexAttribPointer(loc_position, 2, GL_FLOAT, GL_FALSE, stride, nullptr);
+    glVertexAttribPointer(loc_color, 3, GL_FLOAT, GL_FALSE, stride,
+                          reinterpret_cast<const void *>(offsetof(Vertex, color)));
 
     glDrawArrays(GL_TRIANGLES, 0, 3);
 }
