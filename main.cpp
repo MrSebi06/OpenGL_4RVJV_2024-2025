@@ -101,7 +101,9 @@ void Application::Render() {
     glVertexAttribPointer(loc_color, 3, GL_FLOAT, GL_FALSE, stride,
                           reinterpret_cast<const void *>(offsetof(Vertex, color)));
 
-    glDrawArrays(GL_TRIANGLES, 0, 3);
+    // glDrawArrays(GL_TRIANGLES, 0, 3);
+    unsigned int indices[] = {0, 1, 2};
+    glDrawElements(GL_TRIANGLES, 3, GL_FLOAT, indices);
 }
 
 
