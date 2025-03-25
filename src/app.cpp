@@ -1,19 +1,18 @@
-﻿#include <cassert>
+﻿#include "app.h"
+
+#include <cassert>
 #include <GLFW/glfw3.h>
 
 #ifdef WIN32
 #include <GL/wglew.h>
 #endif
 
-#include "app.h"
-
 
 bool Application::Initialize(const int width, const int height) {
+    assert(glewInit() == GLEW_NO_ERROR);
+
     this->width = width;
     this->height = height;
-
-    const GLenum glewOk = glewInit();
-    assert(glewOk == GLEW_NO_ERROR);
 
     m_basicShader.LoadVertexShader("../shader/basic.vs.glsl");
     m_basicShader.LoadFragmentShader("../shader/basic.fs.glsl");

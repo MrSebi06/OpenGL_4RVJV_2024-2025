@@ -1,6 +1,7 @@
 ﻿#ifndef APP_H
 #define APP_H
 
+#define GLEW_STATIC
 #include <GL/glew.h>
 
 #include "GLShader.h"

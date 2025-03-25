@@ -1,7 +1,6 @@
-﻿#define GLEW_STATIC
-#include <GLFW/glfw3.h>
+﻿#include "src/app.h"
 
-#include "src/app.h"
+#include <GLFW/glfw3.h>
 
 
 int main() {
