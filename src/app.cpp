@@ -31,8 +31,11 @@ bool Application::Initialize(const int width, const int height) {
         Vertex(Vec2(0.0f, 0.5f), Vec3(0.0f, 0.0f, 1.0f))
     };
 
+    // glGenVertexArrays(1, &VAO);
+    // glBindVertexArray(VAO);
     glGenBuffers(1, &VBO);
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
+
     glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex) * 3, triangle, GL_STATIC_DRAW);
 
     const auto basicProgram = m_basicShader.GetProgram();
@@ -47,6 +50,7 @@ bool Application::Initialize(const int width, const int height) {
     glVertexAttribPointer(loc_color, 3, GL_FLOAT, GL_FALSE, stride,
                           reinterpret_cast<const void *>(offsetof(Vertex, color)));
 
+    // glBindVertexArray(0);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     return true;
 }
@@ -54,6 +58,7 @@ bool Application::Initialize(const int width, const int height) {
 
 void Application::Terminate() const {
     glDeleteBuffers(1, &VBO);
+    glDeleteVertexArrays(1, &VAO);
 }
 
 
@@ -63,6 +68,8 @@ void Application::Render() const {
     glClear(GL_COLOR_BUFFER_BIT);
 
     // glDrawArrays(GL_TRIANGLES, 0, 3);
+    // glBindVertexArray(VAO);
     constexpr unsigned int indices[] = {0, 1, 2};
     glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, indices);
+    // glBindVertexArray(0);
 }

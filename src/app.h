@@ -10,6 +10,7 @@ struct Application {
 private:
     GLShader m_basicShader;
     GLuint VBO;
+    GLuint VAO;
 
     int width{};
     int height{};
