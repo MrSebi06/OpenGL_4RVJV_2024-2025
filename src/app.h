@@ -10,18 +10,21 @@ struct Application {
 private:
     GLShader m_basicShader;
     GLuint VBO;
+    GLuint IBO;
     GLuint VAO;
 
     int width{};
     int height{};
 
 public:
-    Application(): VBO(0) {
+    Application(): VBO(0), IBO(0), VAO(0) {
     }
 
     Application(const GLShader &m_basic_shader, const GLuint vbo, const int width, const int height)
         : m_basicShader(m_basic_shader),
           VBO(vbo),
+          IBO(0),
+          VAO(0),
           width(width),
           height(height) {
     }
